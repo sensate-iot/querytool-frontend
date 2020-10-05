@@ -1,0 +1,107 @@
+<div class="container">
+  <div class="row">
+    <div class="card">
+      <div class="card-header">
+        <i class="material-icons">assignment</i>
+      </div>
+
+      <div class="card-content">
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-8">
+            <h4 class="card-title">Data Map</h4>
+          </div>
+          <div class="col-sm-6 col-md-6 col-lg-3">
+            <mat-slide-toggle (click)="liveDataToggled($event)"
+                              [disabled]="liveDataElementDisabled"
+                              [(ngModel)]="liveDataEnabled">Live data</mat-slide-toggle>
+          </div>
+          <div class="col-sm-6 col-md-6 col-lg-1">
+            <button (click)="onQueryClick()" mat-mini-fab class="round-btn">
+              <i class="material-icons" style="font-size:18px;">search</i>
+            </button>
+          </div>
+
+        </div>
+
+        <div class="row map"
+             leaflet [leafletOptions]="options"
+             (leafletMapReady)="onMapReady($event)"
+             (leafletClick)="onMapClick($event)"
+        >
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="card">
+      <div class="card-header">
+        <i class="material-icons">assignment</i>
+      </div>
+      <div class="card-content">
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-8">
+            <h4 class="card-title">Data Filter</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="table-responsive" style="height:200px;overflow:auto;padding-left:15px;padding-right:15px">
+            <table class="mat-table table">
+              <tr class="mat-header-row">
+                <th class="mat-header-cell">Key value</th>
+                <th class="mat-header-cell">Lower edge</th>
+                <th class="mat-header-cell">Upper edge</th>
+                <th class="mat-header-cell">Actions</th>
+              </tr>
+              <tr class="mat-row" *ngFor="let key of searchKeys; let i = index">
+                <td class="mat-cell">{{key.keyValue}}</td>
+                <td class="mat-cell">{{key.lowerEdge !== null ? key.lowerEdge : ""}}</td>
+                <td class="mat-cell">{{key.upperEdge !== null ? key.upperEdge : ""}}</td>
+                <td class="mat-cell">
+                  <button mat-mini-fab class="icon-button" (click)="removeKey(i)"><i class="material-icons" style="font-size:20px;">clear</i></button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="row">
+          <form [formGroup]="searchKeyForm">
+
+            <div class="col-md-2 col-xs-12 vcenter">
+              <mat-form-field class="input-full-width" color="accent" >
+                <input matInput type="text" placeholder="Key value" name="name" formControlName="keyValue">
+                <mat-error *ngIf="searchKeyForm.get('keyValue').hasError('required')">
+                  Enter a valid datapoint key value!
+                </mat-error>
+                <mat-error *ngIf="searchKeyForm.get('keyValue').hasError('duplicate')">
+                  Key already exists!
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4 col-xs-12 vcenter">
+              <mat-form-field class="input-full-width" color="accent" >
+                <input matInput type="text" placeholder="Lower edge" name="lowerEdge" formControlName="lowerEdge">
+                <mat-error *ngIf="searchKeyForm.hasError('invalid')">
+                  Invalid edge value!
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4 col-xs-12 vcenter">
+              <mat-form-field class="input-full-width" color="accent" >
+                <input matInput type="text" placeholder="Upper edge" name="upperEdge" formControlName="upperEdge">
+                <mat-error *ngIf="searchKeyForm.hasError('invalid')">
+                  Invalid edge value!
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-1 col-xs-4 vcenter-nomargin">
+              <button mat-mini-fab class="search-btn" (click)="createSearchKey()">
+                <i class="material-icons" style="font-size:20px;">add</i></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

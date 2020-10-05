@@ -1,0 +1,61 @@
+<div class="wrapper">
+  <div class="sidebar-panel" id="sidebar" [style.background-color]="backgroundColor">
+
+    <div class="sidebar-background" [style.background-image]="'url(assets/img/sidebar-' + id + '.jpg)'"></div>
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="main-panel" id="main-panel">
+    <div class="container title">
+      <div class="nav-bar">
+        <div class="left-part">
+          <button mat-mini-fab id="nav-left-button">
+            <i class="material-icons" style="font-size:18px;">more_vert</i>
+          </button>
+          <h4>Sensate IoT</h4>
+        </div>
+        <div class="right-part">
+          <div class="right-part" id="nav-right">
+            <button *ngIf="isAdministrator()" mat-icon-button [matMenuTriggerFor]="settings" ><i class="material-icons icon-btn">settings</i></button>
+            <mat-menu #settings="matMenu">
+              <button routerLink="/admin/overview" mat-menu-item>Administrative dashboard</button>
+              <button routerLink="/admin/user-manager" mat-menu-item>User manager</button>
+            </mat-menu>
+            <button mat-icon-button [matMenuTriggerFor]="apps"><i class="material-icons icon-btn">apps</i></button>
+            <mat-menu #apps="matMenu">
+              <button *ngFor="let entry of applications" mat-menu-item (click)="navigate(entry.app.name)">
+                {{entry.displayName}}
+              </button>
+            </mat-menu>
+            <button mat-icon-button [matMenuTriggerFor]="menu"><i class="material-icons icon-btn">person</i></button>
+            <mat-menu #menu="matMenu">
+              <button routerLink="/profile" mat-menu-item>Profile</button>
+              <button *ngIf="!phoneIsConfirmed()" mat-menu-item routerLink="/confirm-phone-number">Confirm phone number</button>
+              <button mat-menu-item (click)="logoutClicked()">Logout</button>
+              <button mat-menu-item (click)="revokeAllTokens()">Logout everywhere</button>
+            </mat-menu>
+          </div>
+        </div>
+        <div id="menu">
+          <button mat-icon-button (click)="snav.toggle()"><i class="material-icons">menu</i></button>
+        </div>
+      </div>
+    </div>
+
+    <mat-sidenav-container>
+      <mat-sidenav #snav [mode]="'over'">
+        <mat-nav-list>
+          <a mat-list-item (click)="navigate('home')">DataWhere</a>
+          <a mat-list-item routerLink="/overview">Dashboard</a>
+          <a mat-list-item routerLink="/profile">Profile</a>
+          <a mat-list-item routerLink="/sensors/create">Create sensor</a>
+          <a mat-list-item routerLink="/sensors/manager">Sensors</a>
+          <a mat-list-item (click)="revokeAllTokens()">Logout everywhere</a>
+          <a mat-list-item (click)="logoutClicked()">Logout</a>
+        </mat-nav-list>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <router-outlet></router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+</div>

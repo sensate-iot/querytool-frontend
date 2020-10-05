@@ -1,0 +1,38 @@
+<div *ngIf="multi">
+  <div class="col-md-9 vcenter">
+    <mat-form-field class="input-full-width">
+      <mat-label>Sensors</mat-label>
+      <mat-select [formControl]="form" (selectionChange)="onSelectionChanged()" multiple>
+        <mat-select-trigger>
+          {{getTopValue()}}
+          <span *ngIf="form.value?.length > 1">
+          (+{{form.value.length - 1}} {{form.value?.length === 2 ? 'other' : 'others'}})
+        </span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let sensor of sensors" [value]="sensor">{{sensor.name}}</mat-option>
+      </mat-select>
+  </mat-form-field>
+  </div>
+  <div class="col-md-3 vcenter">
+    <mat-checkbox (click)="onSelectAllClicked()" [(ngModel)]="selectAll">Select all</mat-checkbox>
+  </div>
+</div>
+<div *ngIf="!multi" class="col-md-12">
+  <mat-form-field class="input-full-width">
+    <input type="text"
+           placeholder="Select sensor"
+           aria-label="Sensor"
+           matInput
+           name="sensor"
+           [formControl]="form"
+           [matAutocomplete]="auto" />
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="sensorDisplayFn">
+      <mat-option *ngFor="let sensor of filteredSensors | async" [value]="sensor">
+        {{sensor.name}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="form.hasError('required')">
+      Enter a valid sensor name!
+    </mat-error>
+  </mat-form-field>
+</div>

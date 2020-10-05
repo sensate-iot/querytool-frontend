@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+      <div class="card">
+        <div class="card-header">
+          <i class="material-icons">assignment</i>
+        </div>
+        <div class="card-content">
+          <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-8">
+              <h4 class="card-title">Sensor Management</h4>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-3">
+              <mat-slide-toggle (click)="liveDataToggled($event)"
+                                [disabled]="liveDataElementDisabled"
+                                [(ngModel)]="liveDataEnabled">Live data</mat-slide-toggle>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-1">
+              <button (click)="onQueryClick()" mat-mini-fab class="search-btn">
+                <i class="material-icons" style="font-size:18px;">search</i>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+
+<div class="container container-padding">
+  <div class="row" style="margin-top: -20px">
+    <app-large-chart-card
+      [title]="sensorName"
+      headerIcon="settings_remote"
+      linearColor="linear-gradient(60deg, #ffa726, #fb8c00)"
+      boxShadow="0 4px 20px 0 rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(255, 152, 0, 0.4)"
+      maxLabels="24"
+      [reset]="resetChart"
+      [data]="measurementData">
+    </app-large-chart-card>
+  </div>
+</div>

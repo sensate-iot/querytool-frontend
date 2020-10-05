@@ -1,0 +1,135 @@
+<div class="container">
+  <div class="row">
+    <div class="card">
+      <div class="card-header">
+        <i class="material-icons">assignment</i>
+      </div>
+
+      <div class="card-content">
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-8">
+            <h4 class="card-title">Data Export</h4>
+          </div>
+        </div>
+
+
+        <div class="col-md-offset-1 col-md-10 content">
+        <div class="row">
+          <!--<div class="col-xs-12 col-md-12 col-lg-12">-->
+          <app-sensor-select
+            [multi]="true"
+            [form]="sensorControl"
+            [sensors]="sensors" ></app-sensor-select>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6 col-md-6 col-lg-6">
+            <mat-form-field class="input-full-width">
+              <mat-label>Start date</mat-label>
+              <!--suppress HtmlFormInputWithoutLabel -->
+              <input matInput [matDatepicker]="startPicker" [formControl]="startControl">
+              <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+              <mat-datepicker #startPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-xs-6 col-md-6 col-lg-6">
+            <mat-form-field class="input-full-width">
+              <input matInput type="time" step="0.001" placeholder="Start time" [formControl]="startTime">
+              <mat-error *ngIf="startTime.hasError('invalid')">
+                Invalid value!
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-xs-6 col-md-6 col-lg-6">
+            <mat-form-field class="input-full-width">
+              <mat-label>End date</mat-label>
+              <!--suppress HtmlFormInputWithoutLabel -->
+              <input matInput [matDatepicker]="endPicker" [formControl]="endControl">
+              <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+              <mat-datepicker #endPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="col-xs-6 col-md-6 col-lg-6">
+            <mat-form-field class="input-full-width">
+              <input matInput type="time" step="0.001" placeholder="End time" [formControl]="endTime">
+              <mat-error *ngIf="endTime.hasError('invalid')">
+                Invalid value!
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-md-4 col-lg-12">
+            <mat-slide-toggle (click)="toggleGeoQuery()" [(ngModel)]="query.geoQuery">Geo query</mat-slide-toggle>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-13 col-md-4 col-lg-6">
+            <mat-form-field class="input-full-width">
+              <input matInput placeholder="Longitude" [formControl]="longitudeControl">
+              <mat-error *ngIf="longitudeControl.hasError('invalid')">
+                Value out of range!
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-xs-12 col-md-4 col-lg-6">
+            <mat-form-field class="input-full-width">
+              <input matInput placeholder="Latitude" [formControl]="latitudeControl">
+              <mat-error *ngIf="latitudeControl.hasError('invalid')">
+                Value out of range!
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-md-4 col-lg-4">
+            <mat-form-field class="input-full-width">
+              <input matInput placeholder="Skip" [(ngModel)]="query.skip">
+            </mat-form-field>
+          </div>
+
+          <div class="col-xs-12 col-md-4 col-lg-4">
+            <mat-form-field class="input-full-width">
+              <input matInput placeholder="Limit" [(ngModel)]="query.limit">
+            </mat-form-field>
+          </div>
+
+          <div class="col-xs-12 col-md-4 col-lg-4">
+            <mat-form-field class="input-full-width">
+              <input matInput placeholder="Radius" [formControl]="maxRangeControl">
+              <mat-error *ngIf="maxRangeControl.hasError('invalid')">
+                Value out of range!
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <mat-radio-group [formControl]="orderControl">
+              <mat-radio-button value="asc">Order ascending</mat-radio-button>&nbsp;
+              <mat-radio-button value="desc">Order descending</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+
+          <div class="row">
+            <div class="col-md-12 action-btn">
+              <p class="btn-center">
+                <button md-raised-button  type="submit"
+                        class="btn btn-rose" (click)="onOkClick()" >EXPORT</button>
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<header>
+  <div class="left">
+    <h5 class="siteheader">Sensate IoT</h5>
+  </div>
+  <div class="right">
+    <a routerLink="/login" routerLinkActive="router-active"  *ngIf="!isLoggedIn()">
+      <i class="material-icons">fingerprint</i><p>LOGIN</p>
+    </a>
+    <a routerLink="/register" routerLinkActive="router-active" *ngIf="!isLoggedIn()">
+      <i class="material-icons">person_add</i><p>REGISTER</p>
+    </a>
+    <a routerLink="/lock" *ngIf="isLoggedIn()" routerLinkActive="router-active"><i class="material-icons">lock_open</i><p>LOCK</p></a>
+    <a (click)="logoutClicked()" routerLinkActive="router-active" *ngIf="isLoggedIn()">
+      <i class="material-icons">exit_to_app</i><p>LOGOUT</p>
+    </a>
+  </div>
+</header>
