@@ -22,7 +22,6 @@ import {AppsService, MenuEntry} from '../../services/apps.service';
 export class RootComponent implements OnInit, OnDestroy {
   public id : number;
   public backgroundColor : string;
-
   public applications: MenuEntry[];
 
   constructor(private auth : LoginService, private accounts : AccountService,

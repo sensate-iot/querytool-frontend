@@ -32,6 +32,9 @@ export class RealTimeDataService {
       };
 
       this.socket.send(authRequest);
+    }, err => {
+      console.error("Unable to connect to real time data service!");
+      console.error(err);
     });
   }
 
@@ -79,8 +82,6 @@ export class RealTimeDataService {
 
     this.socket.send(subscribeRequest);
   }
-
-
 
   public onMessage() {
     return this.socket.onMessage();

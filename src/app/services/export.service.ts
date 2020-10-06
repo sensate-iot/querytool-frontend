@@ -43,7 +43,7 @@ export class ExportService {
                      limit: number = 0, skip: number = 0,
                      order: OrderDirection = OrderDirection.none) {
     const key = this.login.getSysKey();
-    let url = `${environment.dataApiHost}/export/measurements?key=${key}`;
+    let url = `${environment.dataApiHost}/export/measurements`;
 
     const filter : Filter = {
       end: end.toISOString(),
@@ -74,7 +74,7 @@ export class ExportService {
     order: OrderDirection = OrderDirection.none
   ) {
     const key = this.login.getSysKey();
-    let url = `${environment.dataApiHost}/export/measurements?key=${key}`;
+    let url = `${environment.dataApiHost}/export/measurements`;
     const filter : Filter = {
       end: end.toISOString(),
       start: start.toISOString(),

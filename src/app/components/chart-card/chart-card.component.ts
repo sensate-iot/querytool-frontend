@@ -119,7 +119,6 @@ export class ChartCardComponent implements OnInit, AfterViewInit, OnChanges {
 
     this.chart.on('draw', function(data) {
       if(!chartRendered) {
-        console.debug('Rendering chart...');
         if (data.type === 'line' || data.type === 'area') {
 
           data.element.animate({

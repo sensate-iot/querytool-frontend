@@ -31,12 +31,13 @@ export class RefreshTokenInterceptorService implements HttpInterceptor {
     this.tokenSubject = new BehaviorSubject<string>(null);
   }
 
-  public static addToken(req : HttpRequest<any>, token : string) {
+  public static addToken(req : HttpRequest<any>, token : string, key: string) {
     return req.clone({
       setHeaders: {
         Authorization: 'Bearer ' + token,
         'Cache-Control': 'no-cache',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-ApiKey': key
       }
     });
   }
@@ -44,7 +45,11 @@ export class RefreshTokenInterceptorService implements HttpInterceptor {
 
 
   public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
-    return next.handle(RefreshTokenInterceptorService.addToken(req, this.auth.getJwtToken())).pipe(catchError(error  => {
+    return next.handle(RefreshTokenInterceptorService.addToken(
+      req,
+      this.auth.getJwtToken(),
+      this.auth.getSysKey()
+    )).pipe(catchError(error  => {
       if (error instanceof HttpErrorResponse) {
         const err = <HttpErrorResponse>error;
         switch(err.status) {
@@ -77,7 +82,7 @@ export class RefreshTokenInterceptorService implements HttpInterceptor {
       return this.auth.refresh().pipe(flatMap((res : TokenReply, idx) => {
         this.auth.updateJwt(res.refreshToken, res.jwtToken, res.jwtExpiresInMinutes);
         this.tokenSubject.next(res.jwtToken);
-        return next.handle(RefreshTokenInterceptorService.addToken(req, res.jwtToken));
+        return next.handle(RefreshTokenInterceptorService.addToken(req, res.jwtToken, this.auth.getSysKey()));
       }), catchError(error => {
         console.warn('Unable to refresh authentication token:');
         console.warn(error);
@@ -93,7 +98,7 @@ export class RefreshTokenInterceptorService implements HttpInterceptor {
     } else {
       return this.tokenSubject.pipe(filter(token => token != null),
         take(1),switchMap(token => {
-          return next.handle(RefreshTokenInterceptorService.addToken(req, token));
+          return next.handle(RefreshTokenInterceptorService.addToken(req, token, this.auth.getSysKey()));
         }));
     }
   }
