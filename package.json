@@ -26,7 +26,7 @@
     "@angular/platform-browser": "^10.1.4",
     "@angular/platform-browser-dynamic": "^10.1.4",
     "@angular/router": "^10.1.4",
-    "@asymmetrik/ngx-leaflet": "^6.0.1",
+    "@asymmetrik/ngx-leaflet": "^8.1.0",
     "@types/chartist": "^0.9.48",
     "@types/file-saver": "^2.0.1",
     "ajv": "^6.12.5",

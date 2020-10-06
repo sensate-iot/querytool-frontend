@@ -78,7 +78,7 @@ import {ExportService} from './services/export.service';
     QueryBuilderDialog
   ],
   imports: [
-    LeafletModule.forRoot(),
+    LeafletModule,
     RouterModule,
     BrowserModule,
     FormsModule,
