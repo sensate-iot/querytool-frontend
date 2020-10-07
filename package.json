@@ -7,7 +7,7 @@
     "start": "ng serve --disableHostCheck=true --base-href /apps/querytool/ --port 4100",
     "build-staging": "ng build --aot --configuration=staging --base-href /apps/querytool/",
     "build-dev": "ng build --aot --base-href /apps/querytool/",
-    "build": "ng build --prod",
+    "build": "ng build --prod --aot --base-href /apps/querytool/",
     "postinstall": "ngcc --tsconfig ./src/tsconfig.app.json"
   },
   "browser": {
