@@ -18,7 +18,7 @@ async function main() {
   }
 
   platformBrowserDynamic().bootstrapModule(AppModule)
-    .catch(err => console.log(err));
+    .catch(err => console.error(err));
 }
 
 main().then(() => {});
