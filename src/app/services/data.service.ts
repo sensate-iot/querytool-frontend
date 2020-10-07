@@ -38,7 +38,6 @@ export class DataService {
 
   public getFromMany(sensorId: string[], start: Date, end: Date,
                      limit: number = 0, skip: number = 0, order: OrderDirection = OrderDirection.none) {
-    const key = this.login.getSysKey();
     let url = `${environment.dataApiHost}/measurements/filter`;
 
     const filter : Filter = {
@@ -66,7 +65,6 @@ export class DataService {
     skip: number = 0,
     order: OrderDirection = OrderDirection.none
   ) {
-    const key = this.login.getSysKey();
     let url = `${environment.dataApiHost}/measurements/filter`;
     const filter : Filter = {
       end: end.toISOString(),
@@ -84,7 +82,6 @@ export class DataService {
   }
 
   public get(sensorId: string, start: Date, end: Date, limit: number = 0, skip: number = 0, order: OrderDirection = OrderDirection.none) {
-    const key = this.login.getSysKey();
     let url = `${environment.dataApiHost}/measurements?sensorId=${sensorId}&start=${start.toISOString()}&end=${end.toISOString()}`;
 
     if(limit > 0) {
@@ -105,7 +102,6 @@ export class DataService {
   public getNear(sensorId: string, start: Date, end: Date, location: ILocation,
                  radius: number, limit: number = 0, skip: number = 0,
                  order: OrderDirection = OrderDirection.none) {
-    const key = this.login.getSysKey();
     let url = `${environment.dataApiHost}/measurements?sensorId=${sensorId}`+
       `&start=${start.toISOString()}&end=${end.toISOString()}` +
       `&longitude=${location.longitude}&latitude=${location.latitude}&radius=${radius}`;

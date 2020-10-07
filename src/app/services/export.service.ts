@@ -42,7 +42,6 @@ export class ExportService {
   public getFromMany(sensorId: string[], start: Date, end: Date,
                      limit: number = 0, skip: number = 0,
                      order: OrderDirection = OrderDirection.none) {
-    const key = this.login.getSysKey();
     let url = `${environment.dataApiHost}/export/measurements`;
 
     const filter : Filter = {
@@ -73,7 +72,6 @@ export class ExportService {
     skip: number = 0,
     order: OrderDirection = OrderDirection.none
   ) {
-    const key = this.login.getSysKey();
     let url = `${environment.dataApiHost}/export/measurements`;
     const filter : Filter = {
       end: end.toISOString(),

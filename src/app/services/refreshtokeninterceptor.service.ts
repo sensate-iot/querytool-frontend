@@ -47,8 +47,8 @@ export class RefreshTokenInterceptorService implements HttpInterceptor {
   public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
     return next.handle(RefreshTokenInterceptorService.addToken(
       req,
-      this.auth.getJwtToken(),
-      this.auth.getSysKey()
+      this.getJwtKey(),
+      this.getSystemKey()
     )).pipe(catchError(error  => {
       if (error instanceof HttpErrorResponse) {
         const err = <HttpErrorResponse>error;
@@ -82,7 +82,8 @@ export class RefreshTokenInterceptorService implements HttpInterceptor {
       return this.auth.refresh().pipe(flatMap((res : TokenReply, idx) => {
         this.auth.updateJwt(res.refreshToken, res.jwtToken, res.jwtExpiresInMinutes);
         this.tokenSubject.next(res.jwtToken);
-        return next.handle(RefreshTokenInterceptorService.addToken(req, res.jwtToken, this.auth.getSysKey()));
+
+        return next.handle(RefreshTokenInterceptorService.addToken(req, res.jwtToken, this.getSystemKey()));
       }), catchError(error => {
         console.warn('Unable to refresh authentication token:');
         console.warn(error);
@@ -101,6 +102,26 @@ export class RefreshTokenInterceptorService implements HttpInterceptor {
           return next.handle(RefreshTokenInterceptorService.addToken(req, token, this.auth.getSysKey()));
         }));
     }
+  }
+
+  private getJwtKey() {
+    let jwtKey = this.auth.getJwtToken();
+
+    if(jwtKey == null) {
+      jwtKey = '';
+    }
+
+    return jwtKey;
+  }
+
+  private getSystemKey() {
+    let sysKey = this.auth.getSysKey();
+
+    if(sysKey == null) {
+      sysKey = '';
+    }
+
+    return sysKey;
   }
 
   private logout() {
