@@ -31,7 +31,8 @@ export class LoginService {
       observe: 'response',
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     };
-    this.host = window.location.hostname;
+
+    this.host = window.location.hostname.replace(/^[^.]+\./g, "");
   }
 
   public getUserId() {
