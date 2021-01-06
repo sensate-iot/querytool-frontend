@@ -43,15 +43,6 @@ export class ExportToolComponent implements OnInit {
   public longitudeControl: FormControl;
   public maxRangeControl: FormControl;
 
-  private static SecondsPerMinute = 60;
-  private static MinutesPerHour = 60;
-
-  private static LatitudeMin = -90;
-  private static LatitudeMax = 90;
-
-  private static LongitudeMin = -180;
-  private static LongitudeMax = 80;
-
   public constructor(
     private readonly sensorService: SensorService,
     private readonly exportService: ExportService
@@ -169,7 +160,7 @@ export class ExportToolComponent implements OnInit {
       this.query.limit = +this.query.limit;
     }
 
-    const ids = this.query.selectedSensors.map(x => x.internalId);
+    const ids = this.query.selectedSensors.map(x => x.id);
     const name = 'measurements.csv';
 
     if(this.query.geoQuery) {

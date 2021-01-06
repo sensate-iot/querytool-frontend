@@ -3,7 +3,7 @@
  */
 
 export class Sensor {
-  public internalId: string;
+  public id: string;
   public secret: string;
   public name: string;
   public description: string;
