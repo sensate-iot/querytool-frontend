@@ -44,11 +44,12 @@
     <mat-sidenav-container>
       <mat-sidenav #snav [mode]="'over'">
         <mat-nav-list>
-          <a mat-list-item (click)="navigate('home')">DataWhere</a>
-          <a mat-list-item routerLink="/overview">Dashboard</a>
-          <a mat-list-item routerLink="/profile">Profile</a>
-          <a mat-list-item routerLink="/sensors/create">Create sensor</a>
-          <a mat-list-item routerLink="/sensors/manager">Sensors</a>
+          <a mat-list-item (click)="navigate('home')">Home</a>
+          <a mat-list-item (click)="navigate('dashboard')">Dashboard</a>
+          <a mat-list-item (click)="navigate('querytool')">Query Tool</a>
+          <a mat-list-item (click)="navigate('dashboard', '/profile')">Profile</a>
+          <a mat-list-item (click)="navigate('dashboard', '/sensors/create')">Create sensor</a>
+          <a mat-list-item (click)="navigate('dashboard', '/sensors/manager')">Sensors</a>
           <a mat-list-item (click)="revokeAllTokens()">Logout everywhere</a>
           <a mat-list-item (click)="logoutClicked()">Logout</a>
         </mat-nav-list>

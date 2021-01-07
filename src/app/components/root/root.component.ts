@@ -40,8 +40,8 @@ export class RootComponent implements OnInit, OnDestroy {
     });
   }
 
-  public navigate(dest: string) {
-    this.apps.forward(dest);
+  public navigate(dest: string, path: string = '') {
+    this.apps.forward(dest, path);
   }
 
   ngOnDestroy() {
