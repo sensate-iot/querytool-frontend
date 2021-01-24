@@ -15,11 +15,14 @@
         </div>
         <div class="right-part">
           <div class="right-part" id="nav-right">
-            <button *ngIf="isAdministrator()" mat-icon-button [matMenuTriggerFor]="settings" ><i class="material-icons icon-btn">settings</i></button>
+            <button *ngIf="isAdministrator()" mat-icon-button [matMenuTriggerFor]="settings" >
+              <i class="material-icons icon-btn">settings</i>
+            </button>
             <mat-menu #settings="matMenu">
-              <button routerLink="/admin/overview" mat-menu-item>Administrative dashboard</button>
-              <button routerLink="/admin/user-manager" mat-menu-item>User manager</button>
+              <button (click)="navigate('dashboard', '/admin/overview')"  mat-menu-item>Administrative dashboard</button>
+              <button (click)="navigate('dashboard', '/admin/user-manager')" mat-menu-item>User manager</button>
             </mat-menu>
+
             <button mat-icon-button [matMenuTriggerFor]="apps"><i class="material-icons icon-btn">apps</i></button>
             <mat-menu #apps="matMenu">
               <button *ngFor="let entry of applications" mat-menu-item (click)="navigate(entry.app.name)">
