@@ -22,7 +22,7 @@ const routes: Routes = [
       {path: 'export-tool', component: ExportToolComponent, canActivate: [AuthGuard, ConfirmGuard]},
     ]
   },
-  {path: '*', redirectTo: '/export-tool', canActivate: [AuthGuard, ConfirmGuard]}
+  { path: '*', redirectTo: '/export-tool' }
 ];
 
-export const Routing = RouterModule.forRoot(routes);
+export const Routing = RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' });
