@@ -11,6 +11,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "baseHref": "/apps/querytool/",
             "allowedCommonJsDependencies": [
               "sha.js",
               "chartist-plugin-legend",

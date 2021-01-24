@@ -15,7 +15,7 @@ export class WebSocketService {
   public constructor() { }
 
   public connect(url: string) {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       this.ws = new WebSocket(url);
 
       this.ws.onopen = (ws) => {

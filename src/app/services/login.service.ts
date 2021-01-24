@@ -83,7 +83,7 @@ export class LoginService {
 
     this.keys.revokeAll(true).subscribe(() => {});
 
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       this.http.delete(environment.authApiHost + '/tokens/revoke-all', {
         headers: new HttpHeaders().set('Content-Type', 'application/json').set('Cache-Control', 'no-cache')
       }).subscribe(() => {

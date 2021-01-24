@@ -4,10 +4,10 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --disableHostCheck=true --base-href /apps/querytool/ --port 4100",
-    "build-staging": "ng build --aot --configuration=staging --base-href /apps/querytool/",
-    "build-dev": "ng build --aot --base-href /apps/querytool/",
-    "build": "ng build --prod --aot --base-href /apps/querytool/",
+    "start": "ng serve --disableHostCheck=true --port 4100",
+    "build-staging": "ng build --aot --configuration=staging",
+    "build-dev": "ng build --aot",
+    "build": "ng build --prod --aot",
     "postinstall": "ngcc --tsconfig ./src/tsconfig.app.json"
   },
   "browser": {
@@ -41,7 +41,6 @@
     "leaflet.heat": "^0.2.0",
     "moment": "^2.29.0",
     "ngx-cookie-service": "^11.0.2",
-    "node-sass": "^4.14.1",
     "object-assign": "^4.1.1",
     "rxjs": "^6.6.3",
     "sha.js": "^2.4.11",
