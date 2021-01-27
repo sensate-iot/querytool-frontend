@@ -48,7 +48,7 @@ export class RealTimeDataService {
 
   public subscribe(sensor: Sensor) {
     const request: ISensorAuth = {
-      sensorId: sensor.internalId.toString(),
+      sensorId: sensor.id.toString(),
       sensorSecret: sensor.secret,
       timestamp: new Date().toISOString()
     };
@@ -67,7 +67,7 @@ export class RealTimeDataService {
 
   public unsubscribe(sensor: Sensor) {
     const request: ISensorAuth = {
-      sensorId: sensor.internalId.toString(),
+      sensorId: sensor.id.toString(),
       sensorSecret: sensor.secret,
       timestamp: new Date().toISOString()
     };

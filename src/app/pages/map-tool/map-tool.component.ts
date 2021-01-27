@@ -236,7 +236,7 @@ private disconnectLiveDataService() {
       }
 
       const sensors = this.selectedSensors.map((sensor) => {
-        return sensor.internalId;
+        return sensor.id;
       });
 
       if(result.geoQuery) {

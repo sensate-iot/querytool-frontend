@@ -150,7 +150,7 @@ export class QueryToolComponent implements OnInit, OnDestroy {
       }
 
       for(let sensor of this.sensors) {
-        if(sensor.internalId === result.result[0].internalId) {
+        if(sensor.id === result.result[0].id) {
           this.selectedSensor = sensor;
           break;
         }
@@ -168,7 +168,7 @@ export class QueryToolComponent implements OnInit, OnDestroy {
 
         this.resetChart = true;
 
-        this.dataService.getNear(result.result[0].internalId, result.start, result.end, location,
+        this.dataService.getNear(result.result[0].id, result.start, result.end, location,
           result.max, result.limit, result.skip, result.order)
           .subscribe((result) => {
             result = result.sort((a: Measurement, b: Measurement) => {
@@ -185,7 +185,7 @@ export class QueryToolComponent implements OnInit, OnDestroy {
         });
 
       } else {
-        this.dataService.get(result.result[0].internalId, result.start, result.end, result.limit, result.skip, result.order).subscribe((result) => {
+        this.dataService.get(result.result[0].id, result.start, result.end, result.limit, result.skip, result.order).subscribe((result) => {
           result = result.sort((a: Measurement, b: Measurement) => {
             return a.timestamp.getTime() - b.timestamp.getTime();
           });
