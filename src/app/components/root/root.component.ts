@@ -24,9 +24,11 @@ export class RootComponent implements OnInit, OnDestroy {
   public backgroundColor : string;
   public applications: MenuEntry[];
 
-  constructor(private auth : LoginService, private accounts : AccountService,
+  constructor(private auth : LoginService,
+              private accounts : AccountService,
               private apps: AppsService,
-              private settings : SettingsService, private alerts : AlertService, private router : Router) {
+              private settings : SettingsService,
+              private alerts : AlertService) {
   }
 
   public async ngOnInit() {
@@ -35,7 +37,7 @@ export class RootComponent implements OnInit, OnDestroy {
     this.backgroundColor = this.settings.getSidebarColor();
     await this.accounts.checkAndStoreRoles();
 
-    this.apps.all().subscribe(apps => {
+    this.apps.all().then(apps => {
       this.applications = apps;
     });
   }

@@ -188,6 +188,7 @@ export class LoginService {
     localStorage.removeItem('userId');
     localStorage.removeItem('phone-confirmed');
     localStorage.removeItem('syskey');
+    localStorage.removeItem('apps');
     console.debug(`Removing cookie!`);
     this.cookies.delete(LoginService.AuthCookie, '/', this.host);
   }

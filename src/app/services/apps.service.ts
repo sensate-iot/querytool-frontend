@@ -29,7 +29,29 @@ export class AppsService {
   }
 
   public all() {
+    return new Promise<MenuEntry[]>((resolve) => {
+      const entries = localStorage.getItem('apps');
+
+      if(entries != null) {
+        const parsed = JSON.parse(entries);
+        resolve(parsed);
+      } else {
+        this.allInternal().subscribe(result => {
+          resolve(result);
+        });
+      }
+    });
+  }
+
+  private allInternal() {
     return this.http.get<MenuEntry[]>(`${environment.appsApiHost}/menus`);
+  }
+
+  public loadApps() {
+    this.allInternal().subscribe(result => {
+      const data = JSON.stringify(result);
+      localStorage.setItem('apps', data);
+    });
   }
 
   public forward(app: string, customPath = '') {
