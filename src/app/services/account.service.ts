@@ -34,10 +34,15 @@ export class AccountService {
 
   public checkAndStoreRoles() {
     return new Promise<void>((resolve, reject) => {
+      if (AccountService.hasLocalRoles()) {
+        resolve();
+        return;
+      }
+
       this.http.get<UserRoles>(environment.authApiHost + '/accounts/roles').subscribe(value => {
         localStorage.setItem('roles', JSON.stringify(value));
 
-        if(value.roles.indexOf('Administrators') >= 0) {
+        if (value.roles.indexOf('Administrators') >= 0) {
           localStorage.setItem('admin', 'true');
         }
 
@@ -46,6 +51,13 @@ export class AccountService {
         resolve();
       });
     });
+  }
+
+  private static hasLocalRoles() {
+    const roles = localStorage.getItem('roles');
+    const admin = localStorage.getItem('admin');
+
+    return roles != null && admin != null;
   }
 
   public static isAdmin() : boolean {
@@ -60,6 +72,13 @@ export class AccountService {
 
   public checkPhoneConfirmed() {
     return new Promise<boolean>(resolve => {
+        const confirm = localStorage.getItem('phone-confirmed');
+
+        if (confirm != null) {
+          resolve(confirm == 'true');
+          return;
+        }
+
         this.rawCheckPhoneConfirmed().pipe(map(res => {
           if (res.errorCode != 200)
             return 'false';
@@ -68,7 +87,9 @@ export class AccountService {
         })).subscribe(res => {
           localStorage.setItem('phone-confirmed', res.toString());
           resolve(res.toString() === 'true');
-        }, () => { resolve(true); });
+        }, () => {
+          resolve(true);
+        });
       }
     );
   }
