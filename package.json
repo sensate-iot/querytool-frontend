@@ -1,6 +1,6 @@
 {
-  "name": "sensate-querytool",
-  "version": "1.2.0",
+  "name": "sensateiot-querytool",
+  "version": "1.2.1",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
