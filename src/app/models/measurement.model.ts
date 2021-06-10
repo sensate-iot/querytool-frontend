@@ -5,10 +5,7 @@
  * @email  michel@michelmegens.net
  */
 
-export class GeoJSON {
-  type: string;
-  coordinates: number[];
-}
+import {GeoJSON} from "./geojson.model";
 
 export interface DataPoint {
   unit: string;

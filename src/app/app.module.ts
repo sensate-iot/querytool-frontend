@@ -56,6 +56,8 @@ import {APP_BASE_HREF} from '@angular/common';
 import { ExportToolComponent } from './pages/export-tool/export-tool.component';
 import {MatChipsModule} from '@angular/material/chips';
 import {ExportService} from './services/export.service';
+import { MessageLogComponent } from './pages/message-log/message-log.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({
   declarations: [
@@ -72,7 +74,8 @@ import {ExportService} from './services/export.service';
     QueryToolComponent,
     MapToolComponent,
     SensorSelectComponent,
-    ExportToolComponent
+    ExportToolComponent,
+    MessageLogComponent
   ],
   entryComponents: [
     QueryBuilderDialog
@@ -104,7 +107,8 @@ import {ExportService} from './services/export.service';
     MatInputModule,
     MatSlideToggleModule,
     MatMenuModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatPaginatorModule
 
   ],
   providers: [
