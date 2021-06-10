@@ -1,7 +1,8 @@
 # Sensate IoT query tool
 
-Frontend query tooling for the Sensate IoT data platform. This application can be used to export data,
-render data maps (heat maps) and/or graphs.
+Frontend query tooling for the Sensate IoT data platform. This application can be used to
+export data, render data maps (heat maps) and/or graphs. The query tool can also render text
+messages using the message log page.
 
 ## Development server
 

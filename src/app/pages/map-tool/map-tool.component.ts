@@ -245,7 +245,7 @@ private disconnectLiveDataService() {
           latitude: result.latitude
         };
 
-        this.dataService.getNearFromMany(sensors, result.start, result.end,
+        this.dataService.getNearMeasurementsFromMany(sensors, result.start, result.end,
           location, result.max, result.limit, result.skip, result.order)
           .subscribe((result) => {
             this.measurementData = this.graphService.createMapData(result);
@@ -255,7 +255,7 @@ private disconnectLiveDataService() {
             this.generateMapData();
           });
       } else {
-        this.dataService.getFromMany(sensors, result.start, result.end, result.limit, result.skip).subscribe((result) => {
+        this.dataService.getMeasurementsFromMany(sensors, result.start, result.end, result.limit, result.skip).subscribe((result) => {
           this.measurementData = this.graphService.createMapData(result);
 
           this.graphService.normalizeMapData(this.measurementData);

@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row" style="margin-bottom: 20px">
+    <div class="card">
+      <div class="card-header">
+        <i class="material-icons">assignment</i>
+      </div>
+
+      <div class="card-content">
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-11">
+            <h4 class="card-title">Message Log</h4>
+          </div>
+          <div class="col-sm-6 col-md-6 col-lg-1">
+            <button (click)="onQueryClick()" mat-mini-fab class="round-btn">
+              <i class="material-icons" style="font-size:18px;">search</i>
+            </button>
+          </div>
+
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>Origin Sensor</th>
+                <th>Content Preview</th>
+                <th>Encoding</th>
+                <th>Created on</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let row of rows; let i = index" (click)="onRowClicked(i)">
+                <td>{{i+1}}</td>
+                <td>{{row.sensorName}}</td>
+                <td [innerHTML]="decode(row.selected, row.content)"></td>
+                <td>{{getEncoding(row.encoding)}}</td>
+                <td>{{row.createdOn}}</td>
+              </tr>
+              </tbody>
+            </table>
+
+        </div>
+        <div class="row">
+          <mat-paginator [length]="count"
+                         [pageSize]="pageSize"
+                         [pageSizeOptions]="pageOptions"
+                         (page)="onPaginate($event)">
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

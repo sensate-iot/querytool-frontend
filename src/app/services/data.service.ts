@@ -13,6 +13,8 @@ import {Measurement} from '../models/measurement.model';
 import {Filter} from '../dto/filter';
 import {ILocation} from '../dto/location';
 import {OrderDirection} from '../dto/orderdirection';
+import {Message} from "../models/message.model";
+import {PaginationResult} from "../models/paginationresult.model";
 
 @Injectable()
 export class DataService {
@@ -30,14 +32,13 @@ export class DataService {
   };
 
   public constructor(
-    private readonly http: HttpClient,
-    private readonly login: LoginService
+    private readonly http: HttpClient
   ) {
     this.options = {};
   }
 
-  public getFromMany(sensorId: string[], start: Date, end: Date,
-                     limit: number = 0, skip: number = 0, order: OrderDirection = OrderDirection.none) {
+  public getMeasurementsFromMany(sensorId: string[], start: Date, end: Date,
+                                 limit: number = 0, skip: number = 0, order: OrderDirection = OrderDirection.none) {
     let url = `${environment.dataApiHost}/measurements/filter`;
 
     const filter : Filter = {
@@ -55,7 +56,7 @@ export class DataService {
     return this.http.post<Measurement[]>(url, JSON.stringify(filter), this.options);
   }
 
-  public getNearFromMany(
+  public getNearMeasurementsFromMany(
     sensorIds: string[],
     start: Date,
     end: Date,
@@ -79,6 +80,32 @@ export class DataService {
     };
 
     return this.http.post<Measurement[]>(url, JSON.stringify(filter), this.options);
+  }
+
+  public getNearMessagesFromMany(
+    sensorIds: string[],
+    start: Date,
+    end: Date,
+    location: ILocation = null,
+    radius: number = null,
+    limit: number = 0,
+    skip: number = 0,
+    order: OrderDirection = OrderDirection.none
+  ) {
+    let url = `${environment.dataApiHost}/messages/filter`;
+    const filter: Filter = {
+      end: end.toISOString(),
+      start: start.toISOString(),
+      latitude: location?.latitude,
+      longitude: location?.longitude,
+      radius: radius,
+      limit: limit,
+      skip: skip,
+      sensorIds: sensorIds,
+      orderDirection: order
+    };
+
+    return this.http.post<PaginationResult<Message>>(url, JSON.stringify(filter), this.options);
   }
 
   public get(sensorId: string, start: Date, end: Date, limit: number = 0, skip: number = 0, order: OrderDirection = OrderDirection.none) {

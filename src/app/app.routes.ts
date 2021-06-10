@@ -13,6 +13,7 @@ import {QueryToolComponent} from './pages/query-tool/query-tool.component';
 import {MapToolComponent} from './pages/map-tool/map-tool.component';
 import {ConfirmGuard} from './guards/confirm.guard';
 import {ExportToolComponent} from './pages/export-tool/export-tool.component';
+import {MessageLogComponent} from "./pages/message-log/message-log.component";
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
       {path: 'graph-tool', component: QueryToolComponent, canActivate: [AuthGuard, ConfirmGuard]},
       {path: 'map-tool', component: MapToolComponent, canActivate: [AuthGuard, ConfirmGuard]},
       {path: 'export-tool', component: ExportToolComponent, canActivate: [AuthGuard, ConfirmGuard]},
+      {path: 'message-log', component: MessageLogComponent, canActivate: [AuthGuard, ConfirmGuard]},
     ]
   },
   { path: '*', redirectTo: '/export-tool' }
