@@ -152,7 +152,7 @@ export class MessageLogComponent implements OnInit {
       latitude:lat,
       longitude:lng,
       geoQuery: geoQuery,
-      limit:null,
+      limit:this.pageSize,
       max: geoQuery ? 300 : null,
       result: null,
       skip: null,
@@ -212,6 +212,7 @@ export class MessageLogComponent implements OnInit {
           }
         });
 
+        this.paginator.pageIndex = 0;
         this.messages = messages;
         this.count = messages.count;
         this.createMessageRows();
