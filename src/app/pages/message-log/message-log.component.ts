@@ -179,6 +179,7 @@ export class MessageLogComponent implements OnInit {
         return;
       }
 
+      this.paginator.pageIndex = 0;
       const sensors = this.selectedSensors.map((sensor) => { return sensor.id; });
       this.executeQuery(sensors);
     });
@@ -212,7 +213,6 @@ export class MessageLogComponent implements OnInit {
           }
         });
 
-        this.paginator.pageIndex = 0;
         this.messages = messages;
         this.count = messages.count;
         this.createMessageRows();
