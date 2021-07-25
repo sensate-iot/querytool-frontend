@@ -8,13 +8,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {LoginService} from './login.service';
 import {Measurement} from '../models/measurement.model';
 import {Filter} from '../dto/filter';
 import {ILocation} from '../dto/location';
 import {OrderDirection} from '../dto/orderdirection';
 import {Message} from "../models/message.model";
 import {PaginationResult} from "../models/paginationresult.model";
+import {Observable} from "rxjs/";
+import {Response} from "../dto/response";
+import {map} from "rxjs/operators";
 
 @Injectable()
 export class DataService {
@@ -37,6 +39,12 @@ export class DataService {
     this.options = {};
   }
 
+  private static transformResponse<TValue>(response: Observable<Response<TValue>>): Observable<TValue> {
+    return response.pipe(map((response, idx) => {
+      return response.data;
+    }));
+  }
+
   public getMeasurementsFromMany(sensorId: string[], start: Date, end: Date,
                                  limit: number = 0, skip: number = 0, order: OrderDirection = OrderDirection.none) {
     let url = `${environment.dataApiHost}/measurements/filter`;
@@ -53,7 +61,8 @@ export class DataService {
       orderDirection: order
     };
 
-    return this.http.post<Measurement[]>(url, JSON.stringify(filter), this.options);
+    const response = this.http.post<Response<Measurement[]>>(url, JSON.stringify(filter));
+    return DataService.transformResponse(response);
   }
 
   public getNearMeasurementsFromMany(
@@ -79,7 +88,8 @@ export class DataService {
       orderDirection: order
     };
 
-    return this.http.post<Measurement[]>(url, JSON.stringify(filter), this.options);
+    const response = this.http.post<Response<Measurement[]>>(url, JSON.stringify(filter));
+    return DataService.transformResponse(response);
   }
 
   public getNearMessagesFromMany(
@@ -105,7 +115,8 @@ export class DataService {
       orderDirection: order
     };
 
-    return this.http.post<PaginationResult<Message>>(url, JSON.stringify(filter), this.options);
+    const response = this.http.post<Response<PaginationResult<Message>>>(url, JSON.stringify(filter), this.options);
+    return DataService.transformResponse(response);
   }
 
   public get(sensorId: string, start: Date, end: Date, limit: number = 0, skip: number = 0, order: OrderDirection = OrderDirection.none) {
@@ -123,7 +134,8 @@ export class DataService {
       url += `&order=${order}`;
     }
 
-    return this.http.get<Measurement[]>(url, this.options);
+    const response = this.http.get<Response<Measurement[]>>(url);
+    return DataService.transformResponse(response);
   }
 
   public getNear(sensorId: string, start: Date, end: Date, location: ILocation,
@@ -145,7 +157,7 @@ export class DataService {
       url += `&order=${order}`;
     }
 
-    return this.http.get<Measurement[]>(url, this.options);
+    const response = this.http.get<Response<Measurement[]>>(url);
+    return DataService.transformResponse(response);
   }
-
 }
