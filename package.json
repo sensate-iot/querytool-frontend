@@ -40,7 +40,7 @@
     "leaflet": "^1.7.1",
     "leaflet.heat": "^0.2.0",
     "moment": "^2.29.1",
-    "ngx-cookie-service": "^11.0.2",
+
     "object-assign": "^4.1.1",
     "rxjs": "^6.6.7",
     "sha.js": "^2.4.11",
