@@ -39,7 +39,7 @@
     "jwt-decode": "^2.2.0",
     "leaflet": "^1.7.1",
     "leaflet.heat": "^0.2.0",
-    "moment": "^2.29.1",
+    "moment": "^2.29.4",
     "ngx-cookie-service": "^13.1.2",
     "object-assign": "^4.1.1",
     "rxjs": "^6.6.7",
